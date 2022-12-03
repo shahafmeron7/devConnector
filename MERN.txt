@@ -1,0 +1,81 @@
+MongoDB:
+user:admin-shahaf		
+pass:shahaf123
+
+terminal with git-bash as admin.
+
+1. create ".gitignore" file inside folder of project
+2. inside the gitignore file, write : node_modules/ - > this will ignore/disable the folder with all npms/nodes
+3. open terminal and write : git init -> this will create new repository with git-bash
+4. write the command: npm init -> this will define your project
+5. write the following command:
+"npm i express express-validator bcryptjs config gravatar jsonwebtoken mongoose request"
+
+express - > main webframe work for backend
+express-validator - > data validation , when making post request to our API and there is a field that needs to be there and it arent it will raise a flag.
+bcryptjs used for password encryption
+config - global variables
+gravatar - profile avatars, if a user signes up he can uses an email that essociate with a gravatar account and it will automatically shows their profile image
+jsonwebtoken -. using jwt to pass token to validation
+mongoose - > layer that sit on top of database so we can interacte with it.
+request - > module that will allow us to create http request to onother API for github repositories listed on them. making requests from backend
+
+
+6. write the following command : "npm i -D nodemon concurrently
+
+nodemon- > watch our server so we don't have to refresh it everytime we make a change
+concurrently -> allow us to run our backend express server and our frontend React dev server at the same time with one single command
+
+
+7. create a file named "server.js" inside the main folder and write the following:
+const express = require('express');
+const app = express();
+app.get('/',(req,res)=>res.send('API Running'));
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT,()=> console.log(`Server started on port ${PORT}`));
+
+8. go to package.json to write scripts :
+"scripts": {
+    "start": "node server",
+    "server": "nodemon server"
+  },
+  
+9. run the following command in terminal:
+$ npm run server
+
+10. now open postman and use GET req with http://localhost:5000 or use the browser
+11. command: git add .
+12. command: git commit -m "comment/first initialize"
+
+13. create folder called "config" and inside create new files, "db.js" and "default.json"
+                  ----------
+                   in db.js:
+                  ----------
+const mongoose = require('mongoose');
+
+const config = require('config');
+const db = config.get('mongoURI');
+
+//return promise, use sync/await.
+const connectDB = async() =>{
+  try {
+    await mongoose.connect(db,{useNewUrlParser: true});
+    console.log('MongoDB connected');
+    
+  } catch (err) {
+    console.error(err.message);
+    process.exit(1);
+  }
+}
+
+module.exports = connectDB;
+
+                  ----------
+                   in default.json:
+                  ----------
+{
+  "mongoURI": insert string of MongoDB connect application URI
+}
+
+
