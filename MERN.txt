@@ -79,3 +79,25 @@ module.exports = connectDB;
 }
 
 
+
+14. in order to initialize the client side with React enter the command
+npx create-react-app client
+
+15. in package.json file in server update the scripts to run both client &server together.
+ "scripts": {
+    "start": "node server",
+    "server": "nodemon server",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+
+16. install the following libraris in client folder:
+npm i axios react-router-dom redux react-redux redux-thunk redux-devtools-extension moment react-moment
+
+17. in client folder delete manually the folders : gitignore and readme
+18. delete the git empty repository in Client folder by inserting the command:
+rm -rf .git
+
+18. add a proxy server in order to avoid URL : 'https//localhost:5000' and just using '/api' 
+  inside package.json in client folder after 'browserslist' Object enter:
+  "proxy":"http://localhost:5000"
