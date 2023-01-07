@@ -1,6 +1,7 @@
 {
   "mongoURI": "mongodb+srv://admin-shahaf:shahaf123@devconnector.t9jxx73.mongodb.net/?retryWrites=true&w=majority",
   "jwtSecret": "mysecrettoken",
-  "githubClientId":"1a008029ca6572ea932b",
-  "githubSecret":"8388124461e0006447dc2029cd791f3291acfcef"
+  "githubClientId": "1a008029ca6572ea932b",
+  "githubSecret": "8388124461e0006447dc2029cd791f3291acfcef",
+  "githubToken": "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"
 }
