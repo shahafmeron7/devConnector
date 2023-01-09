@@ -6,6 +6,10 @@ export const AUTH_ERROR = 'AUTH_ERROR';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILED = 'LOGIN_FAILED';
 
+export const POST_ERROR = 'POST_ERROR';
+export const GET_POSTS = 'GET_POSTS';
+export const UPDATE_LIKES = 'UPDATE_LIKES';
+
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const REGISTER_FAIL = 'REGISTER_FAIL';
 export const LOGOUT = 'LOGOUT';
@@ -17,3 +21,9 @@ export const DELETE_ACCOUNT = 'DELETE_ACCOUNT';
 export const GET_PROFILES = 'GET_PROFILES';
 export const GET_REPOS = 'GET_REPOS';
 export const NO_REPOS = 'NO_REPOS';
+export const DELETE_POST = 'DELETE_POST';
+export const ADD_POST = 'ADD_POST';
+export const GET_POST = 'GET_POST';
+
+export const ADD_COMMENT = 'ADD_COMMENT';
+export const REMOVE_COMMENT = 'REMOVE_COMMENT';

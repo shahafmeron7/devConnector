@@ -1,8 +1,8 @@
 const express = require('express');
 const Profile = require('../../models/Profile');
+const axios = require('axios');
 const User = require('../../models/User');
 const Post = require('../../models/Post');
-const request = require('request');
 const config = require('config');
 const router = express.Router();
 const auth = require('../../middleware/auth');
@@ -37,8 +37,8 @@ router.post(
     auth,
     [
       check('status', 'Status is required').not().isEmpty(),
-      check('skills', 'Skills is required').not().isEmpty()
-    ]
+      check('skills', 'Skills is required').not().isEmpty(),
+    ],
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -57,7 +57,7 @@ router.post(
       facebook,
       twitter,
       instagram,
-      linkedin
+      linkedin,
     } = req.body;
 
     //Build profile object
@@ -70,7 +70,7 @@ router.post(
     if (status) profileFields.status = status;
     if (githubusername) profileFields.githubusername = githubusername;
     if (skills) {
-      profileFields.skills = skills.split(',').map(skill => skill.trim());
+      profileFields.skills = skills.split(',').map((skill) => skill.trim());
     }
     //build social object
     profileFields.social = {};
@@ -123,7 +123,7 @@ router.get('/', async (req, res) => {
 router.get('/user/:user_id', async (req, res) => {
   try {
     const profile = await Profile.findOne({
-      user: req.params.user_id
+      user: req.params.user_id,
     }).populate('user', ['name', 'avatar']);
     if (!profile) {
       return res.status(400).json({ msg: 'Profile not found.' });
@@ -165,8 +165,8 @@ router.put(
     [
       check('title', 'Title is required').not().isEmpty(),
       check('company', 'Company is required').not().isEmpty(),
-      check('from', 'From date is required').not().isEmpty()
-    ]
+      check('from', 'From date is required').not().isEmpty(),
+    ],
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -183,7 +183,7 @@ router.put(
       from,
       to,
       current,
-      description
+      description,
     };
     try {
       const profile = await Profile.findOne({ user: req.user.id });
@@ -206,7 +206,7 @@ router.delete('/experience/:exp_id', auth, async (req, res) => {
     let profile = await Profile.findOne({ user: req.user.id });
     //get remove index
     const removeIndex = profile.experience
-      .map(item => item.id)
+      .map((item) => item.id)
       .indexOf(req.params.exp_id);
     profile.experience.splice(removeIndex, 1);
     await profile.save();
@@ -231,8 +231,8 @@ router.put(
       check('school', 'school is required').not().isEmpty(),
       check('degree', 'degree is required').not().isEmpty(),
       check('fieldofstudy', 'field of study is required').not().isEmpty(),
-      check('from', 'From date is required').not().isEmpty()
-    ]
+      check('from', 'From date is required').not().isEmpty(),
+    ],
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -249,7 +249,7 @@ router.put(
       from,
       to,
       current,
-      description
+      description,
     };
     try {
       const profile = await Profile.findOne({ user: req.user.id });
@@ -272,7 +272,7 @@ router.delete('/education/:edu_id', auth, async (req, res) => {
     let profile = await Profile.findOne({ user: req.user.id });
     //get remove index
     const removeIndex = profile.education
-      .map(item => item.id)
+      .map((item) => item.id)
       .indexOf(req.params.edu_id);
     profile.education.splice(removeIndex, 1);
     await profile.save();
@@ -291,9 +291,10 @@ router.get('/github/:username', async (req, res) => {
     const uri = encodeURI(
       `https://api.github.com/users/${req.params.username}/repos?per_page=5&sort=created:asc`
     );
+
     const headers = {
       'user-agent': 'node.js',
-      Authorization: `token ${config.get('githubToken')}`
+      Authorization: `token ${config.get('githubToken')}`,
     };
 
     const gitHubResponse = await axios.get(uri, { headers });
